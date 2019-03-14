@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# We are using SCSS, CSS files will be automatically generated
+*.css

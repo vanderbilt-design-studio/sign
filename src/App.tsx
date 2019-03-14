@@ -1,10 +1,30 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Colors } from "./colors";
+
+const dateTimeOptions: Intl.DateTimeFormatOptions = {
+  timeZone: "America/Chicago",
+  weekday: "short",
+  day: "numeric",
+  month: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  year: "2-digit"
+};
+const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  "en-US",
+  dateTimeOptions
+);
+
+interface IOpenMessage {
+  open: boolean;
+  mentor?: string;
+}
 
 interface ISignState {
   updateTimeIntervalId?: NodeJS.Timeout;
   timeString: string;
-  open?: boolean;
+  lastOpenMessage?: IOpenMessage;
 }
 
 class App extends Component<any, ISignState> {
@@ -15,7 +35,7 @@ class App extends Component<any, ISignState> {
   }
 
   private updateTime() {
-    this.setState({ timeString: new Date().toLocaleString("en-US") });
+    this.setState({ timeString: dateTimeFormat.format(new Date())});
   }
 
   public componentDidMount() {
@@ -30,10 +50,23 @@ class App extends Component<any, ISignState> {
 
   public render() {
     return (
-      <div className="app">
+      <div
+        className="app"
+        style={{
+          backgroundColor: this.state.lastOpenMessage
+            ? this.state.lastOpenMessage.open
+              ? Colors.GREEN
+              : Colors.RED
+            : Colors.WHITE
+        }}
+      >
         <h2>Design Studio</h2>
         <h1>
-          {!!this.state.open ? (this.state.open ? "Open" : "Closed") : "???"}
+          {this.state.lastOpenMessage
+            ? this.state.lastOpenMessage.open
+              ? "Open"
+              : "Closed"
+            : "Unknown"}
         </h1>
         <div className="row">
           <h3>Lorem Ipsum</h3>
