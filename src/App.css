@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:900');
-body, html, #root, .app {
+body, html, #root {
   width: 100vw;
   height: 100vh;
   font-family: 'Lato', sans-serif;
@@ -11,6 +11,18 @@ body, html, #root, .app {
   flex-flow: column;
   align-items: center;
   justify-content: space-between;
+  padding-left: 1.25%;
+  padding-right: 1.25%;
+  width: 97.5%;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 h1, h2, h3, h4 {
