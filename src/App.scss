@@ -1,19 +1,41 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:900');
-body, html, #root {
+@import url("https://fonts.googleapis.com/css?family=Lato:900");
+
+// Adapted from https://css-tricks.com/snippets/sass/power-function/
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+
+body,
+html,
+#root {
   width: 100vw;
   height: 100vh;
-  font-family: 'Lato', sans-serif;
-  font-weight: black;
+  font: {
+    family: Lato, sans-serif;
+    weight: black;
+  }
 }
 
 .app {
+  $width: 97.5%;
+
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: space-between;
-  padding-left: 1.25%;
-  padding-right: 1.25%;
-  width: 97.5%;
+  padding: {
+    left: #{(100 - $width) / 2};
+    right: #{(100 - $width) / 2};
+  }
+  width: $width;
   height: 100%;
 }
 
@@ -25,18 +47,9 @@ body, html, #root {
   width: 100%;
 }
 
-h1, h2, h3, h4 {
-  margin: 0;
-}
-
-h1 {
-  font-size: 20vw;
-}
-
-h2 {
-  font-size: 10vw;
-}
-
-h3 {
-  font-size: 5vw;
+@for $i from 1 through 4 {
+  h#{$i} {
+    font-size: #{(20 / pow(2, $i - 1))}vw;
+    margin: 0;
+  }
 }
