@@ -47,9 +47,34 @@ html,
   width: 100%;
 }
 
+.time {
+  flex-shrink: 2;
+  text-align: right;
+}
+
+.mentors {
+  flex-shrink: 0; // Never wrap mentor names
+}
+
 @for $i from 1 through 4 {
   h#{$i} {
-    font-size: #{(20 / pow(2, $i - 1))}vw;
     margin: 0;
+  }
+}
+
+h1 {
+  font-size: 20vw;
+}
+
+h2 {
+  font-size: 10vw;
+}
+
+h3 {
+  font-size: 4vw;
+  ul {
+    margin-top: 0;
+    padding-left: 4vw;
+    margin-bottom: 0;
   }
 }

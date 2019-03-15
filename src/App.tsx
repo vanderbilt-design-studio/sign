@@ -4,7 +4,7 @@ import { Colors } from "./colors";
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
   timeZone: "America/Chicago",
-  weekday: "short",
+  weekday: "long",
   day: "numeric",
   month: "numeric",
   hour: "numeric",
@@ -16,30 +16,39 @@ const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   dateTimeOptions
 );
 
-interface IOpenMessage {
+interface IMessage {
   open: boolean;
-  mentor?: string;
+  mentors?: string[];
+  weather?: string;
 }
 
 interface ISignState {
   updateTimeIntervalId?: NodeJS.Timeout;
-  timeString: string;
-  lastOpenMessage?: IOpenMessage;
+  time?: string;
+
+  lastUpdate?: IMessage;
 }
 
 class App extends Component<any, ISignState> {
   constructor(props: any) {
     super(props);
-    this.state = { timeString: "" };
+    this.state = {lastUpdate: {
+      open: true,
+      mentors: ["Daiwei L", "Sameer P", "Christina H"],
+      weather: "⛅️ 🌡️+73°F 🌬️↑23 mph"
+    }};
     this.updateTime = this.updateTime.bind(this);
   }
 
   private updateTime() {
-    this.setState({ timeString: dateTimeFormat.format(new Date())});
+    this.setState({ time: dateTimeFormat.format(new Date()) });
   }
 
   public componentDidMount() {
-    this.setState({ updateTimeIntervalId: setInterval(this.updateTime, 1000) });
+    this.updateTime();
+    this.setState({
+      updateTimeIntervalId: setInterval(this.updateTime, 1000)
+    });
   }
 
   public componentWillUnmount() {
@@ -53,24 +62,33 @@ class App extends Component<any, ISignState> {
       <div
         className="app"
         style={{
-          backgroundColor: this.state.lastOpenMessage
-            ? this.state.lastOpenMessage.open
+          backgroundColor: this.state.lastUpdate
+            ? this.state.lastUpdate.open
               ? Colors.GREEN
               : Colors.RED
-            : Colors.WHITE
+            : Colors.WHITE,
+          color: this.state.lastUpdate ? Colors.WHITE : Colors.BLACK
         }}
       >
         <h2>Design Studio</h2>
         <h1>
-          {this.state.lastOpenMessage
-            ? this.state.lastOpenMessage.open
+          {this.state.lastUpdate
+            ? this.state.lastUpdate.open
               ? "Open"
               : "Closed"
             : "Unknown"}
         </h1>
         <div className="row">
-          <h3>Lorem Ipsum</h3>
-          <h3>{this.state.timeString}</h3>
+          {this.state.lastUpdate && this.state.lastUpdate.mentors && this.state.lastUpdate.mentors.length !== 0 && (
+            <h3 className="mentors">
+              Mentor{this.state.lastUpdate.mentors.length > 1 ? "s" : ""} on
+              Duty:
+              <ul>
+              {this.state.lastUpdate.mentors.map(mentor => <li>{mentor}</li>)}
+              </ul>
+            </h3>
+          )}
+          <h3 className="time">{this.state.time}<br/>{this.state.lastUpdate && this.state.lastUpdate.weather}</h3>
         </div>
       </div>
     );
