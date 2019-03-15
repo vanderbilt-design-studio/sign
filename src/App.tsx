@@ -82,7 +82,7 @@ class App extends Component<any, ISignState> {
         <div className="row">
           {this.state.lastMessage &&
             this.state.lastMessage.mentors &&
-            this.state.lastMessage.mentors.length !== 0 && (
+            this.state.lastMessage.mentors.length > 0 && (
               <h3 className="mentors">
                 Mentor{this.state.lastMessage.mentors.length > 1 ? "s" : ""} on
                 Duty:
