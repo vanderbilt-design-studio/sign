@@ -18,8 +18,10 @@ const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(
 
 interface IMessage {
   open: boolean;
-  mentors?: string[];
   weather?: string;
+
+  mentors?: string[];
+  opensAt?: Date;
 }
 
 interface ISignState {
@@ -34,8 +36,9 @@ class App extends Component<any, ISignState> {
   constructor(props: any) {
     super(props);
     const messageSocket = new WebSocket("wss://iot.vanderbilt.design/sign");
-    messageSocket.onmessage = msg => this.setState({lastMessage: JSON.parse(msg.data) as IMessage});
-    this.state = {messageSocket};
+    messageSocket.onmessage = msg =>
+      this.setState({ lastMessage: JSON.parse(msg.data) as IMessage });
+    this.state = { messageSocket };
     this.updateTime = this.updateTime.bind(this);
   }
 
@@ -67,17 +70,14 @@ class App extends Component<any, ISignState> {
             ? this.state.lastMessage.open
               ? Colors.GREEN
               : Colors.RED
-            : Colors.WHITE,
-          color: this.state.lastMessage ? Colors.WHITE : Colors.BLACK
+            : Colors.BLACK,
+          color: Colors.WHITE
         }}
       >
         <h2>Design Studio</h2>
         <h1>
-          {this.state.lastMessage
-            ? this.state.lastMessage.open
-              ? "Open"
-              : "Closed"
-            : "Unknown"}
+          {this.state.lastMessage &&
+            (this.state.lastMessage.open ? "Open" : "Closed")}
         </h1>
         <div className="row">
           {this.state.lastMessage &&
@@ -91,6 +91,20 @@ class App extends Component<any, ISignState> {
                     <li>{mentor}</li>
                   ))}
                 </ul>
+              </h3>
+            )}
+          {this.state.lastMessage &&
+            this.state.lastMessage.opensAt &&
+            ((this.state.lastMessage.mentors &&
+              this.state.lastMessage.mentors.length === 0) ||
+              !this.state.lastMessage.mentors) && (
+              <h3>
+                `Opens at
+                {this.state.lastMessage.opensAt.toLocaleTimeString(
+                  "en-US",
+                  dateTimeOptions
+                )}
+                `
               </h3>
             )}
           <h3 className="time">
