@@ -1,23 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:900");
 
-// Adapted from https://css-tricks.com/snippets/sass/power-function/
-@function pow($number, $exponent) {
-  $value: 1;
-
-  @if $exponent > 0 {
-    @for $i from 1 through $exponent {
-      $value: $value * $number;
-    }
-  }
-
-  @return $value;
-}
-
 body,
 html,
 #root {
   width: 100vw;
-  height: 100vh;
+  height: #{(8.99/16)*100}vw;
   font: {
     family: Lato, sans-serif;
     weight: black;
@@ -63,18 +50,18 @@ html,
 }
 
 h1 {
-  font-size: 25vmin;
+  font-size: 18vw;
 }
 
 h2 {
-  font-size: 10vmin;
+  font-size: 8vw;
 }
 
 h3 {
-  font-size: 5vmin;
+  font-size: 5vw;
   ul {
     margin-top: 0;
-    padding-left: 5vmin;
+    padding-left: 5vw;
     margin-bottom: 0;
   }
 }
