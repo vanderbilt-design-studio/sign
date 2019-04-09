@@ -9,6 +9,7 @@ html,
     family: Lato, sans-serif;
     weight: black;
   }
+  scrollbar-width: none;
 }
 
 .app {
@@ -26,9 +27,9 @@ html,
   height: 100%;
 }
 
-.row {
+.row-reverse {
   display: flex;
-  flex-flow: row;
+  flex-flow: row-reverse;
   align-items: center;
   justify-content: space-between;
   width: 100%;

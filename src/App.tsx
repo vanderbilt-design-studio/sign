@@ -8,8 +8,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
   day: "numeric",
   month: "numeric",
   hour: "numeric",
-  minute: "numeric",
-  year: "2-digit"
+  minute: "numeric"
 };
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   "en-US",
@@ -79,20 +78,12 @@ class App extends Component<any, ISignState> {
           {this.state.lastMessage &&
             (this.state.lastMessage.open ? "Open" : "Closed")}
         </h1>
-        <div className="row">
-          {this.state.lastMessage &&
-            this.state.lastMessage.mentors &&
-            this.state.lastMessage.mentors.length > 0 && (
-              <h3 className="mentors">
-                Mentor{this.state.lastMessage.mentors.length > 1 ? "s" : ""} on
-                Duty:
-                <ul>
-                  {this.state.lastMessage.mentors.map(mentor => (
-                    <li>{mentor}</li>
-                  ))}
-                </ul>
-              </h3>
-            )}
+        <div className="row-reverse">
+          <h3 className="time">
+            {this.state.time}
+            <br />
+            {this.state.lastMessage && this.state.lastMessage.weather}
+          </h3>
           {this.state.lastMessage &&
             this.state.lastMessage.opensAt &&
             ((this.state.lastMessage.mentors &&
@@ -107,11 +98,19 @@ class App extends Component<any, ISignState> {
                 `
               </h3>
             )}
-          <h3 className="time">
-            {this.state.time}
-            <br />
-            {this.state.lastMessage && this.state.lastMessage.weather}
-          </h3>
+          {this.state.lastMessage &&
+            this.state.lastMessage.mentors &&
+            this.state.lastMessage.mentors.length > 0 && (
+              <h3 className="mentors">
+                Mentor{this.state.lastMessage.mentors.length > 1 ? "s" : ""} on
+                Duty:
+                <ul>
+                  {this.state.lastMessage.mentors.map(mentor => (
+                    <li>{mentor}</li>
+                  ))}
+                </ul>
+              </h3>
+            )}
         </div>
       </div>
     );
