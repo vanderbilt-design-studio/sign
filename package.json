@@ -12,6 +12,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
+    "reconnecting-websocket": "^4.1.10",
     "typescript": "3.3.3333"
   },
   "scripts": {

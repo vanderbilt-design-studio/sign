@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Colors } from "./colors";
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
   timeZone: "America/Chicago",
@@ -27,14 +28,14 @@ interface ISignState {
   updateTimeIntervalId?: NodeJS.Timeout;
   time?: string;
 
-  messageSocket: WebSocket;
+  messageSocket: ReconnectingWebSocket;
   lastMessage?: IMessage;
 }
 
 class App extends Component<any, ISignState> {
   constructor(props: any) {
     super(props);
-    const messageSocket = new WebSocket("wss://iot.vanderbilt.design/sign");
+    const messageSocket = new ReconnectingWebSocket("wss://iot.vanderbilt.design/sign");
     messageSocket.onmessage = msg =>
       this.setState({ lastMessage: JSON.parse(msg.data) as IMessage });
     this.state = { messageSocket };
