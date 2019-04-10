@@ -80,9 +80,14 @@ class App extends Component<any, ISignState> {
         </h1>
         <div className="row-reverse">
           <h3 className="time">
-            {this.state.time}
-            <br />
-            {this.state.lastMessage && this.state.lastMessage.weather}
+            {this.state.time &&
+              this.state.time
+                .replace(", ", " ")
+                .split(", ")
+                .map((x, i) => <div key={i}>{x}</div>)}
+            <div>
+              {this.state.lastMessage && this.state.lastMessage.weather}
+            </div>
           </h3>
           {this.state.lastMessage &&
             this.state.lastMessage.opensAt &&
