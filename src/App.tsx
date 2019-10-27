@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import "./App.css";
-import { Colors } from "./colors";
+import React, { Component } from 'react';
+import './App.scss';
+import { Colors } from './colors';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
-  timeZone: "America/Chicago",
-  weekday: "long",
-  day: "numeric",
-  month: "numeric",
-  hour: "numeric",
-  minute: "numeric"
+  timeZone: 'America/Chicago',
+  weekday: 'long',
+  day: 'numeric',
+  month: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
 };
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(
-  "en-US",
-  dateTimeOptions
+  'en-US',
+  dateTimeOptions,
 );
 
 interface IMessage {
@@ -35,7 +35,9 @@ interface ISignState {
 class App extends Component<any, ISignState> {
   constructor(props: any) {
     super(props);
-    const messageSocket = new ReconnectingWebSocket("wss://iot.vanderbilt.design/sign");
+    const messageSocket = new ReconnectingWebSocket(
+      'wss://iot.vanderbilt.design/sign',
+    );
     messageSocket.onmessage = msg =>
       this.setState({ lastMessage: JSON.parse(msg.data) as IMessage });
     this.state = { messageSocket };
@@ -49,7 +51,7 @@ class App extends Component<any, ISignState> {
   public componentDidMount() {
     this.updateTime();
     this.setState({
-      updateTimeIntervalId: setInterval(this.updateTime, 1000)
+      updateTimeIntervalId: setInterval(this.updateTime, 1000),
     });
   }
 
@@ -71,20 +73,20 @@ class App extends Component<any, ISignState> {
               ? Colors.GREEN
               : Colors.RED
             : Colors.BLACK,
-          color: Colors.WHITE
+          color: Colors.WHITE,
         }}
       >
         <h2>Design Studio</h2>
         <h1>
           {this.state.lastMessage &&
-            (this.state.lastMessage.open ? "Open" : "Closed")}
+            (this.state.lastMessage.open ? 'Open' : 'Closed')}
         </h1>
         <div className="row-reverse">
           <h3 className="time">
             {this.state.time &&
               this.state.time
-                .replace(", ", " ")
-                .split(", ")
+                .replace(', ', ' ')
+                .split(', ')
                 .map((x, i) => <div key={i}>{x}</div>)}
             <div>
               {this.state.lastMessage && this.state.lastMessage.weather}
@@ -98,8 +100,8 @@ class App extends Component<any, ISignState> {
               <h3>
                 `Opens at
                 {this.state.lastMessage.opensAt.toLocaleTimeString(
-                  "en-US",
-                  dateTimeOptions
+                  'en-US',
+                  dateTimeOptions,
                 )}
                 `
               </h3>
@@ -108,7 +110,7 @@ class App extends Component<any, ISignState> {
             this.state.lastMessage.mentors &&
             this.state.lastMessage.mentors.length > 0 && (
               <h3 className="mentors">
-                Mentor{this.state.lastMessage.mentors.length > 1 ? "s" : ""} on
+                Mentor{this.state.lastMessage.mentors.length > 1 ? 's' : ''} on
                 Duty:
                 <ul>
                   {this.state.lastMessage.mentors.map(mentor => (
