@@ -76,7 +76,7 @@ class App extends Component<any, ISignState> {
           color: Colors.WHITE,
         }}
       >
-        <h2>Design Studio</h2>
+        <h2>Design Studio https://vanderbilt.design</h2>
         <h1>
           {this.state.lastMessage &&
             (this.state.lastMessage.open ? 'Open' : 'Closed')}
