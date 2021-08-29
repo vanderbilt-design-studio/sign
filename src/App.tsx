@@ -77,7 +77,7 @@ class App extends Component<any, ISignState> {
         }}
       >
         <h2>Design Studio</h2>
-        <h3>https://vanderbilt.design</h3>
+        <h3>https://vanderbi.lt/designstudio</h3>
         <h1>
           {this.state.lastMessage &&
             (this.state.lastMessage.open ? 'Open' : 'Closed')}
