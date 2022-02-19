@@ -8,7 +8,7 @@
     "@types/node": "12",
     "@types/react": "16",
     "@types/react-dom": "16",
-    "node-sass": "4",
+    "node-sass": "7",
     "npm-run-all": "4",
     "react": "16",
     "react-dom": "16",
